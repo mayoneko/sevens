@@ -40,4 +40,22 @@ class Player(_playerID: Int) {
             else -> cards
         }
     }
+
+    fun hasWinning(): Boolean {
+        if (this.cards.isEmpty()) {
+            this.state = Player.WIN
+            return true
+        } else {
+            return false
+        }
+    }
+
+    fun hasLosing(): Boolean {
+        if (!this.canPass()) {
+            this.state = Player.LOSE
+            return true
+        } else {
+            return false
+        }
+    }
 }
