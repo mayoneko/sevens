@@ -17,7 +17,7 @@ class Dealer(_playersSize: Int) {
 
     fun setupBoard(players: List<Player>) {
         for ((playerID, cardID) in ((0..51).map { it % 3 }).zip((0..51).shuffled())) {
-            dealOneCard(players[playerID], cardID.toCard())
+            dealOneCard(players[playerID], intToCard(cardID))
         }
 
         for (playerID in 0 until players.size) {
@@ -34,7 +34,7 @@ class Dealer(_playersSize: Int) {
 
     fun playTurn(player: Player) {
         player.playingAlgorithm(this)
-        println(this.showCardsOnBoard().toString())
+        println(cardsToString(this.showCardsOnBoard()))
     }
 
     fun handleTurn(players: List<Player>) {
