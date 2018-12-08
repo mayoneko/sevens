@@ -1,7 +1,8 @@
 package mayoneko
 
-class Player {
+class Player(_playerID: Int) {
     val cards = mutableListOf<Card>()
+    val playerID = _playerID
 
     companion object {
         const val PLAYING = 0
