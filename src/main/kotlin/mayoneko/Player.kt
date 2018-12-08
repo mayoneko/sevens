@@ -15,7 +15,7 @@ class Player(_playerID: Int) {
     fun canPass(): Boolean = remainingPassCount > 0
 
     fun playingAlgorithm(dealer: Dealer) {
-        val playableCards = searchPlayableCards(dealer)
+        val playableCards = getPlayableCards(board, this)
         if (playableCards.isEmpty()) {
             dealer.pass(this)
         } else {
@@ -23,16 +23,6 @@ class Player(_playerID: Int) {
             dealer.play(this, cardWillPlay)
         }
         //override this method and fix yourself!
-    }
-
-    fun searchPlayableCards(dealer: Dealer): List<Card> {
-        val playableCards = mutableListOf<Card>()
-        for (card in this.cards) {
-            dealer.searchCards(dealer.getPlayableCards(), card.suitNum, card.num).map { playableCard ->
-                playableCards.add(playableCard)
-            }
-        }
-        return playableCards
     }
 
     fun isPlaying(): Boolean {

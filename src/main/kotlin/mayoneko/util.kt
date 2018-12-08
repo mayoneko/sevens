@@ -60,7 +60,8 @@ fun searchCards(cards: List<Card>, suitNum: Int? = null, num: Int? = null): List
     }
 }
 
-fun getPlayableCards(board: Board): List<Card> {
+fun getPlayableCards(board: Board, player: Player? = null): List<Card> {
+
     val cardsOnBoard = board.getBoardCards()
     val playableCards = mutableListOf<Card>()
     for (i in 0..3) {
@@ -78,5 +79,17 @@ fun getPlayableCards(board: Board): List<Card> {
             }
         }
     }
-    return playableCards
+
+    if (player is Player) {
+        val playableCardsForPlayer = mutableListOf<Card>()
+        for (card in player.cards) {
+            searchCards(playableCards, card.suitNum, card.num).map { playableCard ->
+                playableCardsForPlayer.add(playableCard)
+            }
+        }
+        return playableCardsForPlayer
+
+    } else {
+        return playableCards
+    }
 }
