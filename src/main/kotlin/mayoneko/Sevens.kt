@@ -8,10 +8,10 @@ fun main(args: Array<String>) {
     board.setupBoard()
 }
 
-fun createPlayers(playerNum: Int): List<Player> {
+fun createPlayers(playersSize: Int): List<Player> {
     val players = mutableListOf<Player>()
-    for (playerID in 0 until playerNum) {
-        players.add(Player())
+    for (playerID in 0 until playersSize) {
+        players.add(Player(playerID))
     }
     return players
 }
