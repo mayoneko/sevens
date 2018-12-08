@@ -13,20 +13,25 @@ class Dealer(_playerNum: Int) {
 
     //game manage functions
 
-    fun setupBoard(players: List<Player>) {
+    fun dealCardsToPlayers(board: Board) {
         for ((playerID, cardID) in ((0..51).map { it % 3 }).zip((0..51).shuffled())) {
-            dealOneCard(players[playerID], intToCard(cardID))
+            board.moveCardToPlayer(intToCard(cardID), playerID)
         }
+    }
 
-        for (playerID in 0 until players.size) {
+    fun setStartPlayer(players: List<Player>) {
+        for (playerID in 0 until playerNum) {
             val player = players[playerID]
             if (searchCards(player.cards, Suit.CLUBS, 7).isNotEmpty()) {
                 this.turnPlayerID = playerID
             }
-            val sevenCards = searchCards(player.cards, num = 7)
-            sevenCards.forEach { card ->
-                play(player, card)
-            }
+        }
+    }
+
+    fun setSevenCardsOnBoard() { //TODO: move to Player Class
+        val sevenCards = searchCards(player.cards, num = 7)
+        sevenCards.forEach { card ->
+            play(player, card)
         }
     }
 
