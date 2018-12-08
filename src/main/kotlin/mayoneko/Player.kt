@@ -28,7 +28,7 @@ class Player(_playerID: Int) {
     fun searchCardsCanPlay(dealer: Dealer): List<Card> {
         val cardsCanPlay = mutableListOf<Card>()
         for (card in this.cards) {
-            dealer.searchCards(dealer.showCardsCanPlay(), card.suitNum, card.num).map { cardCanPlay ->
+            dealer.searchCards(dealer.getCardsCanPlay(), card.suitNum, card.num).map { cardCanPlay ->
                 cardsCanPlay.add(cardCanPlay)
             }
         }

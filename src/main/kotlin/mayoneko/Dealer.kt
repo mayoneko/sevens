@@ -34,7 +34,7 @@ class Dealer(_playerNum: Int) {
 
     fun playTurn(player: Player) {
         player.playingAlgorithm(this)
-        println(cardsToString(this.showCardsOnBoard()))
+        println(cardsToString(this.getCardsOnBoard()))
     }
 
     fun handleTurn(players: List<Player>) {
@@ -119,10 +119,10 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun showCardsOnBoard(): List<Card> = this.cardsOnBoard
+    fun getCardsOnBoard(): List<Card> = this.cardsOnBoard
 
-    fun showCardsCanPlay(): List<Card> {
-        val cardsOnBoard = showCardsOnBoard()
+    fun getCardsCanPlay(): List<Card> {
+        val cardsOnBoard = getCardsOnBoard()
         val cardsCanPlay = mutableListOf<Card>()
         for (i in 0..3) {
             for (card in searchCards(cardsOnBoard, i, 7)) {
