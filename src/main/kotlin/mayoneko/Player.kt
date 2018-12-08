@@ -3,7 +3,13 @@ package mayoneko
 class Player {
     val cards = mutableListOf<Card>()
 
-    var state=PlayerState.PLAYING
+    companion object {
+        const val PLAYING = 0
+        const val LOSE = 1
+        const val WIN = 2
+    }
+
+    private var state = PLAYING
     var remainingPassCount: Int = 3
     var canPass: Boolean = true
 
@@ -32,13 +38,5 @@ class Player {
             }
             else -> cards
         }
-    }
-}
-
-class PlayerState {
-    companion object {
-        const val PLAYING = 0
-        const val LOSE = 1
-        const val WIN = 2
     }
 }
