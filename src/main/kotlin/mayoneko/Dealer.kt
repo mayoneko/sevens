@@ -8,8 +8,6 @@ class Dealer(_playerNum: Int) {
     //keyがrankID、valがplayerID
     private val playerRanking = mutableMapOf<Int, Int>()
 
-    private val cardsOnBoard = mutableListOf<Card>()
-
     var turnPlayerID: Int = 0
 
 
@@ -103,56 +101,6 @@ class Dealer(_playerNum: Int) {
             player.remainingPassCount--
         }
     }
-
-    fun searchCards(cards: List<Card>, suitNum: Int? = null, num: Int? = null): List<Card> {
-        return when {
-            suitNum is Int && num is Int -> cards.filter { card ->
-                card.suitNum == suitNum && card.num == num
-            }
-            suitNum is Int -> cards.filter { card ->
-                card.suitNum == suitNum
-            }
-            num is Int -> cards.filter { card ->
-                card.num == num
-            }
-            else -> cards
-        }
-    }
-
-    fun getCardsOnBoard(): List<Card> = this.cardsOnBoard
-
-    fun getPlayableCards(): List<Card> {
-        val cardsOnBoard = getCardsOnBoard()
-        val playableCards = mutableListOf<Card>()
-        for (i in 0..3) {
-            for (card in searchCards(cardsOnBoard, i, 7)) {
-                searchCardsOfOneSideInSuit@
-                for (it in card.outerCards()) {
-                    var outerCard = it
-                    while (cardsOnBoard.contains(outerCard)) {
-                        if (outerCard.outerCards().isNotEmpty()) {
-                            break@searchCardsOfOneSideInSuit
-                        }
-                        outerCard = outerCard.outerCards().single()
-                    }
-                    playableCards.add(outerCard)
-                }
-            }
-        }
-        return playableCards
-    }
-
-
-    //card manage functions in private
-
-    private fun dealOneCard(player: Player, card: Card) {
-        player.cards.add(card)
-    }
-
-    private fun addOneCardOnBoard(card: Card) {
-        this.cardsOnBoard.add(card)
-    }
-
 
 }
 

@@ -44,3 +44,39 @@ fun sortCards(cards: List<Card>): List<Card> {
         cardToInt(card)
     }
 }
+
+fun searchCards(cards: List<Card>, suitNum: Int? = null, num: Int? = null): List<Card> {
+    return when {
+        suitNum is Int && num is Int -> cards.filter { card ->
+            card.suitNum == suitNum && card.num == num
+        }
+        suitNum is Int -> cards.filter { card ->
+            card.suitNum == suitNum
+        }
+        num is Int -> cards.filter { card ->
+            card.num == num
+        }
+        else -> cards
+    }
+}
+
+fun getPlayableCards(board: Board): List<Card> {
+    val cardsOnBoard = board.getBoardCards()
+    val playableCards = mutableListOf<Card>()
+    for (i in 0..3) {
+        for (card in searchCards(cardsOnBoard, i, 7)) {
+            searchCardsOfOneSideInSuit@
+            for (it in card.outerCards()) {
+                var outerCard = it
+                while (cardsOnBoard.contains(outerCard)) {
+                    if (outerCard.outerCards().isNotEmpty()) {
+                        break@searchCardsOfOneSideInSuit
+                    }
+                    outerCard = outerCard.outerCards().single()
+                }
+                playableCards.add(outerCard)
+            }
+        }
+    }
+    return playableCards
+}
