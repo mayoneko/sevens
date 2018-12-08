@@ -1,8 +1,8 @@
 package mayoneko
 
-class Dealer(_playersSize: Int) {
+class Dealer(_playerNum: Int) {
 
-    val playersSize = _playersSize
+    val playerNum = _playerNum
 
     //PlayerStateがPLAYING以外になったときに格納する
     //keyがrankID、valがplayerID
@@ -70,7 +70,7 @@ class Dealer(_playersSize: Int) {
         }
         player.cards.removeAll { true }
 
-        var playerRank = playersSize - 1
+        var playerRank = playerNum - 1
         while (playerRanking.containsKey(playerRank)) {
             playerRank--
         }
