@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
     do {
         dealer.playTurn(players[dealer.turnPlayerID])
         dealer.handleTurn(players)
-    } while (dealer.isGameEnded(players))
+    } while (!dealer.isGameEnded(players))
 }
 
 fun createPlayers(playersSize: Int): List<Player> {
