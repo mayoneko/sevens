@@ -13,6 +13,23 @@ class Suit {
     }
 }
 
+fun Card.outerCards(): List<Card> {
+    return when (this.num) {
+        in 2..6 -> listOf(Card(this.suitNum, this.num - 1))
+        in 8..12 -> listOf(Card(this.suitNum, this.num + 1))
+        7 -> listOf(Card(this.suitNum, this.num - 1), Card(this.suitNum, this.num + 1))
+        else -> listOf()
+    }
+}
+
+fun Card.innerCards(): List<Card> {
+    return when (this.num) {
+        in 1..6 -> listOf(Card(this.suitNum, this.num + 1))
+        in 8..13 -> listOf(Card(this.suitNum, this.num - 1))
+        else -> listOf()
+    }
+}
+
 fun Card.toString(): String {
     val suitString = when (this.suitNum) {
         0 -> "♥"
@@ -37,8 +54,8 @@ fun Card.toInt(): Int {
     return this.suitNum * 13 + (this.num - 1)
 }
 
-fun Int.toCard(): Card{
-    return Card(this%4,this%13+1)
+fun Int.toCard(): Card {
+    return Card(this % 4, this % 13 + 1)
 }
 
 fun List<Card>.toString() {
