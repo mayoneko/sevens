@@ -2,10 +2,14 @@ package mayoneko
 
 
 fun main(args: Array<String>) {
-    val playerNum = 3
-    val players = createPlayers(playerNum)
-    val board = Board(players)
-    board.setupBoard()
+    val playersSize = 3
+    val players = createPlayers(playersSize)
+    val dealer = Dealer(playersSize)
+    dealer.setupBoard(players)
+    do {
+        dealer.playTurn(players[dealer.turnPlayerID])
+        dealer.handleTurn(players)
+    } while (dealer.isGameEnded(players))
 }
 
 fun createPlayers(playersSize: Int): List<Player> {
