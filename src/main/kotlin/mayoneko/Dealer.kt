@@ -25,6 +25,10 @@ class Dealer(_playersSize: Int) {
             if (searchCards(player.cards, Suit.CLUBS, 7).isNotEmpty()) {
                 this.turnPlayerID = playerID
             }
+            val sevenCards = searchCards(player.cards, num = 7)
+            sevenCards.forEach { card ->
+                play(player, card)
+            }
         }
     }
 
