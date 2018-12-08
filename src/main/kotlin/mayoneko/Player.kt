@@ -12,33 +12,31 @@ class Player(_playerID: Int) {
 
     private var state = PLAYING
     var remainingPassCount: Int = 3
-    var canPass: Boolean = true
+    fun canPass(): Boolean = remainingPassCount > 0
 
-    fun pass() {
-        //TODO
-    }
-
-    fun play(suitNum: Int, num: Int) {
-        //TODO
-    }
-
-    fun playingAlgorithm() {
-        //TODO
-    }
-
-    fun searchCards(suitNum: Int? = null, num: Int? = null): List<Card> {
-        return when {
-            suitNum is Int && num is Int -> cards.filter {
-                it.suitNum == suitNum && it.num == num
-            }
-            suitNum is Int -> cards.filter {
-                it.suitNum == suitNum
-            }
-            num is Int -> cards.filter{
-                it.num == num
-            }
-            else -> cards
+    fun playingAlgorithm(dealer: Dealer) {
+        val cardsCanPlay = searchCardsCanPlay(dealer)
+        if (cardsCanPlay.isEmpty()) {
+            dealer.pass(this)
+        } else {
+            val cardWillPlay = cardsCanPlay.random()
+            dealer.play(this, cardWillPlay)
         }
+        //override this method and fix yourself!
+    }
+
+    fun searchCardsCanPlay(dealer: Dealer): List<Card> {
+        val cardsCanPlay = mutableListOf<Card>()
+        for (card in this.cards) {
+            dealer.searchCards(dealer.showCardsCanPlay(), card.suitNum, card.num).map { cardCanPlay ->
+                cardsCanPlay.add(cardCanPlay)
+            }
+        }
+        return cardsCanPlay
+    }
+
+    fun isPlaying(): Boolean {
+        return this.state == PLAYING
     }
 
     fun hasWinning(): Boolean {
