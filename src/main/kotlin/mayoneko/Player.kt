@@ -15,24 +15,24 @@ class Player(_playerID: Int) {
     fun canPass(): Boolean = remainingPassCount > 0
 
     fun playingAlgorithm(dealer: Dealer) {
-        val cardsCanPlay = searchCardsCanPlay(dealer)
-        if (cardsCanPlay.isEmpty()) {
+        val playableCards = searchPlayableCards(dealer)
+        if (playableCards.isEmpty()) {
             dealer.pass(this)
         } else {
-            val cardWillPlay = cardsCanPlay.random()
+            val cardWillPlay = playableCards.random()
             dealer.play(this, cardWillPlay)
         }
         //override this method and fix yourself!
     }
 
-    fun searchCardsCanPlay(dealer: Dealer): List<Card> {
-        val cardsCanPlay = mutableListOf<Card>()
+    fun searchPlayableCards(dealer: Dealer): List<Card> {
+        val playableCards = mutableListOf<Card>()
         for (card in this.cards) {
-            dealer.searchCards(dealer.getCardsCanPlay(), card.suitNum, card.num).map { cardCanPlay ->
-                cardsCanPlay.add(cardCanPlay)
+            dealer.searchCards(dealer.getPlayableCards(), card.suitNum, card.num).map { playableCard ->
+                playableCards.add(playableCard)
             }
         }
-        return cardsCanPlay
+        return playableCards
     }
 
     fun isPlaying(): Boolean {

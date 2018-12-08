@@ -121,9 +121,9 @@ class Dealer(_playerNum: Int) {
 
     fun getCardsOnBoard(): List<Card> = this.cardsOnBoard
 
-    fun getCardsCanPlay(): List<Card> {
+    fun getPlayableCards(): List<Card> {
         val cardsOnBoard = getCardsOnBoard()
-        val cardsCanPlay = mutableListOf<Card>()
+        val playableCards = mutableListOf<Card>()
         for (i in 0..3) {
             for (card in searchCards(cardsOnBoard, i, 7)) {
                 searchCardsOfOneSideInSuit@
@@ -135,11 +135,11 @@ class Dealer(_playerNum: Int) {
                         }
                         outerCard = outerCard.outerCards().single()
                     }
-                    cardsCanPlay.add(outerCard)
+                    playableCards.add(outerCard)
                 }
             }
         }
-        return cardsCanPlay
+        return playableCards
     }
 
 
