@@ -39,20 +39,4 @@ class Card {
         return "${suitStr}-${numStr}"
     }
 
-    fun outerCards(): List<Card> {
-        return when (this.number) {
-            in 2..6 -> listOf(Card(this.suit, this.number - 1))
-            in 8..12 -> listOf(Card(this.suit, this.number + 1))
-            7 -> listOf(Card(this.suit, this.number - 1), Card(this.suit, this.number + 1))
-            else -> listOf()
-        }
-    }
-
-    fun innerCards(): List<Card> {
-        return when (this.number) {
-            in 1..6 -> listOf(Card(this.suit, this.number + 1))
-            in 8..13 -> listOf(Card(this.suit, this.number - 1))
-            else -> listOf()
-        }
-    }
 }
