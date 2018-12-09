@@ -15,16 +15,14 @@ abstract class Algorithm {
         val playableCards = mutableListOf<Card>()
         for (suit in 0..3) {
             for (num in 6 downTo 1) {
-                if (board.filter { card -> card.suit == suit && card.number == num }.isEmpty()) {
-                    playableCards.add(Card(suit, num))
-                    break
-                }
+                if (board.any { card -> card.suit == suit && card.number == num }) continue
+                playableCards.add(Card(suit, num))
+                break
             }
             for (num in 8..13) {
-                if (board.filter { card -> card.suit == suit && card.number == num }.isEmpty()) {
-                    playableCards.add(Card(suit, num))
-                    break
-                }
+                if (board.any { card -> card.suit == suit && card.number == num }) continue
+                playableCards.add(Card(suit, num))
+                break
             }
         }
         return playableCards
