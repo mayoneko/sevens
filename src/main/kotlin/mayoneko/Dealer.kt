@@ -13,31 +13,65 @@ class Dealer(_playerNum: Int) {
 
     //game manage functions
 
-    fun dealCardsToPlayers(board: Board) {
-        for ((playerID, cardID) in ((0..51).map { it % 3 }).zip((0..51).shuffled())) {
-            board.moveCardToPlayer(intToCard(cardID), playerID)
+    fun dealCardsToPlayers(board: Board, players: List<Player>) {
+        for ((cardID, playerID) in (0..51).shuffled().zip((0..51).map { it % 3 })) {
+            board.setCardToPlayer(cardID, playerID)
+        }
+        for (player in players) {
+            player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
         }
     }
 
     fun setStartPlayer(players: List<Player>) {
-        for (playerID in 0 until playerNum) {
-            val player = players[playerID]
-            if (searchCards(player.cards, Suit.CLUBS, 7).isNotEmpty()) {
-                this.turnPlayerID = playerID
+        for (player in players) {
+            if (player.cards.filter { card -> card.suit == Suit.CLUBS && card.number == 7 }.isNotEmpty()) {
+                this.turnPlayerID = player.id
             }
         }
     }
 
-    fun setSevenCardsOnBoard() { //TODO: move to Player Class
-        val sevenCards = searchCards(player.cards, num = 7)
-        sevenCards.forEach { card ->
-            play(player, card)
+    fun setSevenCardsOnBoard(board: Board, players: List<Player>) {
+        for (player in players) {
+            val sevenCards = player.cards.filter { card -> card.number == 7 }
+            sevenCards.forEach { card ->
+                board.setCardOnBoard(card.id)
+            }
+            player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
         }
     }
 
-    fun playTurn(player: Player) {
-        player.playingAlgorithm(this)
-        println(cardsToString(this.getCardsOnBoard()))
+    fun playTurn(board: Board, player: Player) {
+        val boardCards = board.getBoard().map { cardID -> Card(cardID) }
+        val handCards = board.getHand(player.id).map { cardID -> Card(cardID) }
+        val maybeCard = player.algorithm.choiceCard(boardCards, handCards)
+        if (maybeCard is Card) {
+            board.setCardOnBoard(maybeCard.id)
+        } else {
+            player.reduceRemainingPassCount()
+        }
+        player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
+    }
+
+    fun handleState(board: Board, player: Player) {
+        if (player.cards.isEmpty()) {
+            player.changeToWin()
+            var playerRank = 1
+            while (playerRanking.containsKey(playerRank)) {
+                playerRank++
+            }
+            playerRanking[playerRank] = player.id
+        }
+        if (player.getRemainingPassCount() < 0) {
+            player.changeToLose()
+            var playerRank = playerNum
+            while (playerRanking.containsKey(playerRank)) {
+                playerRank--
+            }
+            playerRanking[playerRank] = player.id
+            player.cards.map { card ->
+                board.setCardOnBoard(card.id)
+            }
+        }
     }
 
     fun handleTurn(players: List<Player>) {
@@ -46,7 +80,7 @@ class Dealer(_playerNum: Int) {
                 turnPlayerID = (turnPlayerID + 1) % 3
             } while (!players[turnPlayerID].isPlaying())
         } else {
-            gameEnding(players)
+            gameEnding()
         }
     }
 
@@ -56,56 +90,11 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-
-    //player state manage functions in private
-
-    private fun winPlayer(player: Player) {
-        var playerRank = 1
-        while (playerRanking.containsKey(playerRank)) {
-            playerRank++
-        }
-        playerRanking[playerRank] = player.playerID
-    }
-
-    private fun losePlayer(player: Player) {
-        for (card in player.cards) {
-            addOneCardOnBoard(card)
-        }
-        player.cards.removeAll { true }
-
-        var playerRank = playerNum - 1
-        while (playerRanking.containsKey(playerRank)) {
-            playerRank--
-        }
-        playerRanking[playerRank] = player.playerID
-    }
-
-
-    private fun gameEnding(players: List<Player>) {
+    private fun gameEnding() {
         println("GameSet\n")
-        for (rankID in 0 until players.size) {
+        for (rankID in 1..playerNum) {
             println("${rankID}位 : Player${playerRanking[rankID]}")
         }
     }
-
-
-    //card manage functions for player
-
-    fun play(player: Player, card: Card) {
-        player.cards.remove(card)
-        this.addOneCardOnBoard(card)
-        if (player.hasWinning()) {
-            this.winPlayer(player)
-        }
-    }
-
-    fun pass(player: Player) {
-        if (player.hasLosing()) {
-            this.losePlayer(player)
-        } else {
-            player.remainingPassCount--
-        }
-    }
-
 }
 

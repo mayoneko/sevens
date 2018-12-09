@@ -1,41 +1,60 @@
 package mayoneko
 
 class Board {
-    private var cardsMap = mutableMapOf<Card, Int>()
+    private var ownerMap = mutableMapOf<Int, Int>()
+    //key: cardID
+    //value: ownerID
 
-    private fun getCards(ownerID: Int): List<Card> {
-        val cards = mutableListOf<Card>()
-        cardsMap.filter {
-            it.value == ownerID
-        }.map {
-            cards.add(it.key)
-        }
-        return cards
+    companion object {
+        const val BOARD = -1
     }
 
-    fun getPlayerCards(playerID: Int): List<Card> {
+    init {
+        for (cardID in 0..51) {
+            ownerMap[cardID] = BOARD
+        }
+    }
+
+    private fun getCards(ownerID: Int): List<Int> {
+        return ownerMap.filter { item ->
+            item.value == ownerID
+        }.map { item ->
+            item.key
+        }
+    }
+
+    fun getHand(playerID: Int): List<Int> {
         return getCards(playerID)
     }
 
-    fun getBoardCards(): List<Card> {
-        return getCards(-1)
+    fun getBoard(): List<Int> {
+        return getCards(BOARD)
     }
 
-    private fun moveCardOwner(card: Card, ownerID: Int) {
-        var key: Card? = null
-        cardsMap.filter {
-            it.key.equals(card)
-        }.map {
-            key = it.key
+    private fun setCardOwner(cardID: Int, ownerID: Int) {
+        ownerMap[cardID] = ownerID
+    }
+
+    fun setCardToPlayer(cardID: Int, playerID: Int) {
+        setCardOwner(cardID, playerID)
+    }
+
+    fun setCardOnBoard(cardID: Int) {
+        setCardOwner(cardID, BOARD)
+    }
+
+    override fun toString(): String {
+        var fullBoard = ""
+        for ((key, value) in ownerMap) {
+            fullBoard += when (value) {
+                -1 -> Card(key).toString()
+                else -> "    "
+            }
+            fullBoard += when {
+                key % 13 == 12 -> "\n"
+                else -> ","
+            }
         }
-        cardsMap[key as Card] = ownerID
-    }
-
-    fun moveCardToPlayer(card: Card, playerID: Int) {
-        moveCardOwner(card, playerID)
-    }
-
-    fun setCardOnBoard(card: Card) {
-        moveCardOwner(card, -1)
+        return fullBoard
     }
 }

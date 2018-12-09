@@ -1,8 +1,6 @@
 package mayoneko
 
-class Player(_playerID: Int) {
-    val cards = mutableListOf<Card>()
-    val playerID = _playerID
+class Player(val id: Int, val algorithm: Algorithm) {
 
     companion object {
         const val PLAYING = 0
@@ -10,40 +8,37 @@ class Player(_playerID: Int) {
         const val WIN = 2
     }
 
-    private var state = PLAYING
-    var remainingPassCount: Int = 3
-    fun canPass(): Boolean = remainingPassCount > 0
+    var cards = listOf<Card>()
 
-    fun playingAlgorithm(dealer: Dealer) {
-        val playableCards = getPlayableCards(board, this)
-        if (playableCards.isEmpty()) {
-            dealer.pass(this)
-        } else {
-            val cardWillPlay = playableCards.random()
-            dealer.play(this, cardWillPlay)
-        }
-        //override this method and fix yourself!
+    private var state = PLAYING
+
+    private var remainingPassCount: Int = 3
+
+    fun getRemainingPassCount() = remainingPassCount
+
+    fun reduceRemainingPassCount() {
+        remainingPassCount--
     }
 
     fun isPlaying(): Boolean {
-        return this.state == PLAYING
+        return state == PLAYING
     }
 
-    fun hasWinning(): Boolean {
+    fun changeToWin() {
         if (this.cards.isEmpty()) {
-            this.state = Player.WIN
-            return true
+            this.state = WIN
+            return
         } else {
-            return false
+            throw IllegalStateException("this player still has cards")
         }
     }
 
-    fun hasLosing(): Boolean {
-        if (!this.canPass()) {
-            this.state = Player.LOSE
-            return true
+    fun changeToLose() {
+        if (getRemainingPassCount() < 0) {
+            this.state = LOSE
+            return
         } else {
-            return false
+            throw IllegalStateException("this player can still pass")
         }
     }
 }

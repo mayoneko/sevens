@@ -1,46 +1,46 @@
 package mayoneko
 
 
-data class Card(val suitNum: Int, val num: Int) {
+class Card {
+    val suit: Int
+    val number: Int
+    val id: Int
+
+    constructor(_cardID: Int) {
+        if (_cardID in (0..51)) {
+            id = _cardID
+            suit = _cardID / 13
+            number = _cardID % 13 + 1
+        } else {
+            throw IllegalArgumentException("cardID argument must be in 0..51")
+        }
+    }
+
+    constructor(_suit: Int, _number: Int) {
+        if (_suit in (0..3)) {
+            suit = _suit
+        } else {
+            throw IllegalArgumentException("suit argument must be in 0..3")
+        }
+        if (_number in (1..13)) {
+            number = _number
+        } else {
+            throw IllegalArgumentException("number argument must be in 1..13")
+        }
+        id = _suit * 13 + (_number - 1)
+    }
 
     override fun toString(): String {
-        val suitString = when (this.suitNum) {
+        val suitStr = when (this.suit) {
             0 -> "♥"
             1 -> "♦"
             2 -> "♣"
             3 -> "♠"
-            else -> this.suitNum.toString()
+            else -> "?"
         }
-        val numString = when (this.num) {
-            1 -> "A"
-            10 -> "0"
-            11 -> "J"
-            12 -> "Q"
-            13 -> "K"
-            else -> this.num.toString()
-        }
+        val numStr = this.number.toString().padStart(2, '0')
 
-        return "{$suitString-$numString}"
+        return "${suitStr}-${numStr}"
     }
 
-    fun equals(card: Card): Boolean {
-        return this.suitNum == card.suitNum && this.num == card.num
-    }
-
-    fun outerCards(): List<Card> {
-        return when (this.num) {
-            in 2..6 -> listOf(Card(this.suitNum, this.num - 1))
-            in 8..12 -> listOf(Card(this.suitNum, this.num + 1))
-            7 -> listOf(Card(this.suitNum, this.num - 1), Card(this.suitNum, this.num + 1))
-            else -> listOf()
-        }
-    }
-
-    fun innerCards(): List<Card> {
-        return when (this.num) {
-            in 1..6 -> listOf(Card(this.suitNum, this.num + 1))
-            in 8..13 -> listOf(Card(this.suitNum, this.num - 1))
-            else -> listOf()
-        }
-    }
 }
