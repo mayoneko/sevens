@@ -7,9 +7,13 @@ class Card {
     val id: Int
 
     constructor(_cardID: Int) {
-        suit = _cardID % 4
-        number = _cardID % 13 + 1
-        id = _cardID
+        if (_cardID in (0..51)) {
+            id = _cardID
+            suit = _cardID % 4
+            number = _cardID % 13 + 1
+        } else {
+            throw IllegalArgumentException("cardID argument must be in 0..51")
+        }
     }
 
     constructor(_suit: Int, _number: Int) {
