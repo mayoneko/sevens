@@ -10,14 +10,6 @@ class Suit {
     }
 }
 
-fun cardToInt(card: Card): Int {
-    return card.suit * 13 + (card.number - 1)
-}
-
-fun intToCard(cardID: Int): Card {
-    return Card(cardID % 4, cardID % 13 + 1)
-}
-
 fun cardsToString(cards: List<Card>, isBoardView: Boolean = true): String {
     var fullBoard = ""
     var index = 0
