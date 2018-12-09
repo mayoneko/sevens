@@ -35,7 +35,7 @@ class Game {
     }
 
     fun createPlayers(): List<Player> {
-        return listOf(Player(0, Algorithms0()), Player(1, Algorithms1()), Player(2, Algorithms2()))
+        return listOf(Player(0, RandomAlgorithm()), Player(1, KidsAlgorithm()), Player(2, MayonekoAlgorithm()))
     }
 
 }
