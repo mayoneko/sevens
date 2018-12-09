@@ -9,7 +9,7 @@ class Card {
     constructor(_cardID: Int) {
         if (_cardID in (0..51)) {
             id = _cardID
-            suit = _cardID % 4
+            suit = _cardID / 13
             number = _cardID % 13 + 1
         } else {
             throw IllegalArgumentException("cardID argument must be in 0..51")
