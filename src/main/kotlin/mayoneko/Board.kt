@@ -28,7 +28,11 @@ class Board {
         }.map {
             key = it.key
         }
-        cardsMap[key as Card] = ownerID
+        if (key is Card) {
+            cardsMap[key as Card] = ownerID
+        } else {
+            throw IllegalStateException("missing cards in game")
+        }
     }
 
     fun moveCardToPlayer(card: Card, playerID: Int) {
