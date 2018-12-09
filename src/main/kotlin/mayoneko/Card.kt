@@ -18,7 +18,7 @@ class Card {
         } else {
             throw IllegalArgumentException("suit argument must be in 0..3")
         }
-        if (_number !in (1..13)) {
+        if (_number in (1..13)) {
             number = _number
         } else {
             throw IllegalArgumentException("number argument must be in 1..13")
