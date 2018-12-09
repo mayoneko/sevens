@@ -3,6 +3,13 @@ package mayoneko
 class Board {
     private var cardsMap = mutableMapOf<Card, Int>()
 
+    init {
+        (0..51).map {
+            val card = intToCard(it)
+            cardsMap[card] = -1
+        }
+    }
+
     private fun getCards(ownerID: Int): List<Card> {
         val cards = mutableListOf<Card>()
         cardsMap.filter {
