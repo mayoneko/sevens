@@ -5,7 +5,7 @@ fun main(args: Array<String>) {
     val playerNum = 3
     val board = Board()
     val dealer = Dealer(playerNum)
-    val players = createPlayers(playerNum)
+    val players = createPlayers()
     val playerStates = createPlayerStates(playerNum)
     dealer.dealCardsToPlayers(board, players)
     dealer.setStartPlayer(players)
@@ -28,11 +28,11 @@ fun main(args: Array<String>) {
     } while (!dealer.isGameEnded(playerStates))
 }
 
-fun createPlayers(playerNum: Int): List<Player> {
+fun createPlayers(): List<Player> {
     val players = mutableListOf<Player>()
-    for (playerID in 0 until playerNum) {
-        players.add(Player(playerID))
-    }
+    players.add(Player0())
+    players.add(Player1())
+    players.add(Player2())
     return players
 }
 
