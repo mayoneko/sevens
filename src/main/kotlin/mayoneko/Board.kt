@@ -1,7 +1,7 @@
 package mayoneko
 
 class Board {
-    private var cardsMap = mutableMapOf<Int, Int>()
+    private var ownerMap = mutableMapOf<Int, Int>()
     //key: cardID
     //value: ownerID
 
@@ -9,13 +9,13 @@ class Board {
 
     init {
         for (cardID in 0..51) {
-            cardsMap[cardID] = -1
+            ownerMap[cardID] = -1
         }
     }
 
     private fun getCardIDs(ownerID: Int): List<Int> {
         val cardIDs = mutableListOf<Int>()
-        cardsMap.filter {
+        ownerMap.filter {
             it.value == ownerID
         }.map {
             cardIDs.add(it.key)
@@ -32,7 +32,7 @@ class Board {
     }
 
     private fun setCardOwner(cardID: Int, ownerID: Int) {
-        cardsMap[cardID] = ownerID
+        ownerMap[cardID] = ownerID
     }
 
     fun setCardToPlayer(cardID: Int, playerID: Int) {
@@ -45,7 +45,7 @@ class Board {
 
     override fun toString(): String {
         var fullBoard = ""
-        for ((key, value) in cardsMap) {
+        for ((key, value) in ownerMap) {
             fullBoard += when (value) {
                 -1 -> Card(key).toString()
                 else -> "    "
