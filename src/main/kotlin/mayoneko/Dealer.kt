@@ -91,7 +91,7 @@ class Dealer(_playerNum: Int) {
 
     private fun gameEnding() {
         println("GameSet\n")
-        for (rankID in 0 until playerNum) {
+        for (rankID in 1..playerNum) {
             println("${rankID}位 : Player${playerRanking[rankID]}")
         }
     }
