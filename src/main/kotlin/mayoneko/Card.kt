@@ -1,14 +1,31 @@
 package mayoneko
 
 
-data class Card(val suitNum: Int, val cardNum: Int) {
+data class Card constructor(val _suitNum: Int, val _cardNum: Int) {
+    val suitNum: Int
+
+    val cardNum: Int
+
+    init {
+        if (_suitNum in (0..3)) {
+            suitNum = _suitNum
+        } else {
+            throw IllegalArgumentException("suitNum argument must be in 0..3")
+        }
+        if (_cardNum in (1..13)) {
+            cardNum = _cardNum
+        } else {
+            throw IllegalArgumentException("cardNum argument must be in 1..13")
+        }
+    }
+
     override fun toString(): String {
         val suitString = when (this.suitNum) {
             0 -> "♥"
             1 -> "♦"
             2 -> "♣"
             3 -> "♠"
-            else -> this.suitNum.toString()
+            else -> throw IllegalStateException("suitNum property must be in 0..3")
         }
         val numString = when (this.cardNum) {
             1 -> "A"
@@ -16,7 +33,8 @@ data class Card(val suitNum: Int, val cardNum: Int) {
             11 -> "J"
             12 -> "Q"
             13 -> "K"
-            else -> this.cardNum.toString()
+            in 2..9 -> this.cardNum.toString()
+            else -> throw IllegalStateException("cardNum property must be in 1..13")
         }
 
         return "{$suitString-$numString}"
