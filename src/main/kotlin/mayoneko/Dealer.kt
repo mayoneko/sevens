@@ -18,7 +18,7 @@ class Dealer(_playerNum: Int) {
             board.setCardToPlayer(cardID, playerID)
         }
         for (player in players) {
-            player.cards = board.getPlayerCardIDs(player.id).map { cardID -> Card(cardID) }
+            player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
         }
     }
 
@@ -36,19 +36,19 @@ class Dealer(_playerNum: Int) {
             sevenCards.forEach { card ->
                 board.setCardOnBoard(card.id)
             }
-            player.cards = board.getPlayerCardIDs(player.id).map { cardID -> Card(cardID) }
+            player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
         }
     }
 
     fun playTurn(board: Board, player: Player) {
-        val playableCards = getPlayableCards(board.getBoardCardIDs().map { cardID -> Card(cardID) }, player.cards)
+        val playableCards = getPlayableCards(board.getBoard().map { cardID -> Card(cardID) }, player.cards)
         val maybeCard = player.algorithm.choiceCard(playableCards)
         if (maybeCard is Card) {
             board.setCardOnBoard(maybeCard.id)
         } else {
             player.reduceRemainingPassCount()
         }
-        player.cards = board.getPlayerCardIDs(player.id).map { cardID -> Card(cardID) }
+        player.cards = board.getHand(player.id).map { cardID -> Card(cardID) }
     }
 
     fun handleState(board: Board, player: Player) {

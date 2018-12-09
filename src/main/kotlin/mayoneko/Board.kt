@@ -13,22 +13,20 @@ class Board {
         }
     }
 
-    private fun getCardIDs(ownerID: Int): List<Int> {
-        val cardIDs = mutableListOf<Int>()
-        ownerMap.filter {
-            it.value == ownerID
-        }.map {
-            cardIDs.add(it.key)
+    private fun getCards(ownerID: Int): List<Int> {
+        return ownerMap.filter { item ->
+            item.value == ownerID
+        }.map { item ->
+            item.key
         }
-        return cardIDs
     }
 
-    fun getPlayerCardIDs(playerID: Int): List<Int> {
-        return getCardIDs(playerID)
+    fun getHand(playerID: Int): List<Int> {
+        return getCards(playerID)
     }
 
-    fun getBoardCardIDs(): List<Int> {
-        return getCardIDs(-1)
+    fun getBoard(): List<Int> {
+        return getCards(-1)
     }
 
     private fun setCardOwner(cardID: Int, ownerID: Int) {
