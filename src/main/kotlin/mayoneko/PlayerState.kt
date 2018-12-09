@@ -1,39 +1,45 @@
 package mayoneko
 
-class PlayerState(_playerNum: Int) {
-    private val playerNum = _playerNum
+class PlayerState(_playerID: Int) {
 
-    private val playerStates = mutableMapOf<Int, Int>()
-
-    init {
-        for (playerID in 0 until playerNum) {
-            playerStates[playerID] = Player.PLAYING
-        }
+    companion object {
+        const val PLAYING = 0
+        const val LOSE = 1
+        const val WIN = 2
     }
 
-    private fun getPlayerState(playerID: Int): Int? {
-        return playerStates[playerID]
-    }
+    private val playerID = _playerID
 
-    private fun setPlayerState(playerState: Int, playerID: Int) {
-        playerStates[playerID] = playerState
-    }
+    private var state = PLAYING
+
+    private var remainingPassCount: Int = 3
+
+    fun canPass(): Boolean = remainingPassCount > 0
+
 
     fun changeToWin(player: Player) {
-        if (player.cards.isEmpty()) {
-            playerStates[player.playerID] = Player.WIN
-            return
+        if (player.playerID != playerID) {
+            throw IllegalArgumentException("argument playerID is invalid")
         } else {
-            throw IllegalStateException("this player still has cards")
+            if (player.cards.isEmpty()) {
+                this.state = WIN
+                return
+            } else {
+                throw IllegalStateException("this player still has cards")
+            }
         }
     }
 
     fun changeToLose(player: Player) {
-        if (!player.canPass()) {
-            playerStates[player.playerID] = Player.LOSE
-            return
+        if (player.playerID != playerID) {
+            throw IllegalArgumentException("argument playerID is invalid")
         } else {
-            throw IllegalStateException("this player can still pass")
+            if (!canPass()) {
+                this.state = LOSE
+                return
+            } else {
+                throw IllegalStateException("this player can still pass")
+            }
         }
     }
 }
