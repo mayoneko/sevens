@@ -20,12 +20,18 @@ class PlayerState(_playerNum: Int) {
     }
 
     fun changeToWin(player: Player): Boolean {
-        //TODO
+        if (player.cards.isEmpty()) {
+            playerStates[player.playerID] = Player.WIN
+            return true
+        }
         return false
     }
 
     fun changeToLose(player: Player): Boolean {
-        //TODO
+        if (!player.canPass()) {
+            playerStates[player.playerID] = Player.LOSE
+            return true
+        }
         return false
     }
 }
