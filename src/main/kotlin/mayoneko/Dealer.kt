@@ -48,6 +48,7 @@ class Dealer(_playerNum: Int) {
         } else {
             playerState.reduceRemainingPassCount()
         }
+        player.cards = board.getPlayerCards(player.playerID)
     }
 
     fun handleTurn(playerStates: List<PlayerState>) {
