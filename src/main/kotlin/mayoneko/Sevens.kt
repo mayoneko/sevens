@@ -11,7 +11,10 @@ fun main(args: Array<String>) {
     dealer.setStartPlayer(players)
     dealer.setSevenCardsOnBoard(board, players)
     do {
-        dealer.playTurn(board, players[dealer.turnPlayerID], playerStates[dealer.turnPlayerID])
+        val player = players[dealer.turnPlayerID]
+        val playerState = playerStates[dealer.turnPlayerID]
+        dealer.playTurn(board, player, playerState)
+        dealer.handleState(player, playerState)
         dealer.handleTurn(playerStates)
     } while (!dealer.isGameEnded(playerStates))
 }
