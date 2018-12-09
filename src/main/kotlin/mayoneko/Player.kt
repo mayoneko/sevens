@@ -1,18 +1,10 @@
 package mayoneko
 
-class Player(_playerID: Int) {
+abstract class Player(_playerID: Int) {
     var cards = listOf<Card>()
     val playerID = _playerID
 
-    fun playingAlgorithm(playableCards: List<Card>): Card? {
-        if (playableCards.isEmpty()) {
-            return pass()
-        } else {
-            val cardWillPlay = playableCards.random()
-            return play(cardWillPlay)
-        }
-        //override this method and fix yourself!
-    }
+    abstract fun playingAlgorithm(playableCards: List<Card>): Card?
 
     fun play(card: Card): Card {
         return card
