@@ -45,13 +45,13 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun handleTurn(players: List<Player>) {
-        if (!isGameEnded(players)) {
+    fun handleTurn(playerStates: List<PlayerState>) {
+        if (!isGameEnded(playerStates)) {
             do {
                 turnPlayerID = (turnPlayerID + 1) % 3
-            } while (!players[turnPlayerID].isPlaying())
+            } while (!playerStates[turnPlayerID].isPlaying())
         } else {
-            gameEnding(players)
+            gameEnding()
         }
     }
 
