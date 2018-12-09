@@ -51,6 +51,15 @@ class Dealer(_playerNum: Int) {
         player.cards = board.getPlayerCards(player.playerID)
     }
 
+    fun handleState(player: Player, playerState: PlayerState) {
+        if (player.cards.isEmpty()) {
+            playerState.changeToWin(player)
+        }
+        if (playerState.getRemainingPassCount() < 0) {
+            playerState.changeToLose(player)
+        }
+    }
+
     fun handleTurn(playerStates: List<PlayerState>) {
         if (!isGameEnded(playerStates)) {
             do {
