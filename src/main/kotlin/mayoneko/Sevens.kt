@@ -13,8 +13,17 @@ fun main(args: Array<String>) {
     do {
         val player = players[dealer.turnPlayerID]
         val playerState = playerStates[dealer.turnPlayerID]
+
+        println("Player${player.playerID}   RemainingPassCount:${playerState.getRemainingPassCount()}")
+        println("Cards")
+        println(cardsToString(player.cards, false))
+
         dealer.playTurn(board, player, playerState)
-        dealer.handleState(player, playerState)
+        dealer.handleState(board, player, playerState)
+
+        println("now board")
+        println(cardsToString(board.getBoardCards()))
+
         dealer.handleTurn(playerStates)
     } while (!dealer.isGameEnded(playerStates))
 }
