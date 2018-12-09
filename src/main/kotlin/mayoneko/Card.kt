@@ -33,10 +33,6 @@ data class Card(val suit: Int, val number: Int) {
         return "{${suitStr}-${numStr}}"
     }
 
-    fun equals(card: Card): Boolean {
-        return this.suitNum == card.suitNum && this.cardNum == card.cardNum
-    }
-
     fun outerCards(): List<Card> {
         return when (this.number) {
             in 2..6 -> listOf(Card(this.suit, this.number - 1))
