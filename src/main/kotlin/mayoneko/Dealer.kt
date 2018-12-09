@@ -13,9 +13,12 @@ class Dealer(_playerNum: Int) {
 
     //game manage functions
 
-    fun dealCardsToPlayers(board: Board) {
+    fun dealCardsToPlayers(board: Board, players: List<Player>) {
         for ((playerID, cardID) in ((0..51).map { it % 3 }).zip((0..51).shuffled())) {
             board.moveCardToPlayer(intToCard(cardID), playerID)
+        }
+        for (player in players) {
+            player.cards = board.getPlayerCards(player.playerID)
         }
     }
 
