@@ -10,39 +10,21 @@ class Suit {
     }
 }
 
-fun getPlayableCards(cardsOnBoard: List<Card>, playerCards: List<Card>? = null): List<Card> {
-
+fun getPlayableCards(cardsOnBoard: List<Card>): List<Card> {
     val playableCards = mutableListOf<Card>()
-    for (i in 0..3) {
-        for (card in searchCards(cardsOnBoard, i, 7)) {
-            for (it in card.outerCards()) {
-                var outerCardIsValid = true
-                var outerCard = it
-                while (cardsOnBoard.contains(outerCard)) {
-                    if (outerCard.outerCards().isEmpty()) {
-                        outerCardIsValid = false
-                        break
-                    } else {
-                        outerCard = outerCard.outerCards().single()
-                    }
-                }
-                if (outerCardIsValid) {
-                    playableCards.add(outerCard)
-                }
+    for (suit in 0..3) {
+        for (num in 6 downTo 1) {
+            if (!cardsOnBoard.contains(Card(suit, num))) {
+                playableCards.add(Card(suit, num))
+                break
+            }
+        }
+        for (num in 8..13) {
+            if (!cardsOnBoard.contains(Card(suit, num))) {
+                playableCards.add(Card(suit, num))
+                break
             }
         }
     }
-
-    if (playerCards is List<Card>) {
-        val playableCardsForPlayer = mutableListOf<Card>()
-        for (card in playerCards) {
-            searchCards(playableCards, card.suit, card.number).map { playableCard ->
-                playableCardsForPlayer.add(playableCard)
-            }
-        }
-        return playableCardsForPlayer
-
-    } else {
-        return playableCards
-    }
+    return playableCards
 }
