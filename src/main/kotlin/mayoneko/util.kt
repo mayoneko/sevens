@@ -31,7 +31,7 @@ fun cardsToString(cards: List<Card>, isBoardView: Boolean = true): String {
             }
         } else {
             if (isBoardView) {
-                fullBoard += "{-:-}"
+                fullBoard += "{-:--}"
             }
         }
         if (i % 13 == 12) {
