@@ -18,17 +18,18 @@ data class Card(val suit: Int, val number: Int) {
             1 -> "♦"
             2 -> "♣"
             3 -> "♠"
-            else -> throw IllegalStateException("suit property must be in 0..3")
+            else -> "?"
         }
         val numStr = when (this.number) {
             1 -> "A"
-            10 -> "0"
             11 -> "J"
             12 -> "Q"
             13 -> "K"
-            in 2..9 -> this.number.toString()
-            else -> throw IllegalStateException("number property must be in 1..13")
-        }
+            in 2..10 -> this.number.toString()
+            else -> "?"
+        }.padStart(2)
+
+//        val numStr = this.number.toString().padStart(2, '0')
 
         return "{${suitStr}-${numStr}}"
     }
