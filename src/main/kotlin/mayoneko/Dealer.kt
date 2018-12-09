@@ -14,11 +14,11 @@ class Dealer(_playerNum: Int) {
     //game manage functions
 
     fun dealCardsToPlayers(board: Board, players: List<Player>) {
-        for ((playerID, cardID) in ((0..51).map { it % 3 }).zip((0..51).shuffled())) {
-            board.moveCardToPlayer(intToCard(cardID), playerID)
+        for ((cardID, playerID) in (0..51).shuffled().zip((0..51).map { it % 3 })) {
+            board.setCardToPlayer(cardID, playerID)
         }
         for (player in players) {
-            player.cards = board.getPlayerCards(player.playerID)
+            player.cards = board.getPlayerCardIDs(player.playerID).map { cardID -> Card(cardID) }
         }
     }
 
@@ -34,21 +34,21 @@ class Dealer(_playerNum: Int) {
         for (player in players) {
             val sevenCards = searchCards(player.cards, number = 7)
             sevenCards.forEach { card ->
-                board.setCardOnBoard(card)
+                board.setCardOnBoard(card.id)
             }
-            player.cards = board.getPlayerCards(player.playerID)
+            player.cards = board.getPlayerCardIDs(player.playerID).map { cardID -> Card(cardID) }
         }
     }
 
     fun playTurn(board: Board, player: Player, playerState: PlayerState) {
-        val playableCards = getPlayableCards(board.getBoardCards(), player.cards)
+        val playableCards = getPlayableCards(board.getBoardCardIDs().map { cardID -> Card(cardID) }, player.cards)
         val maybeCard = player.playingAlgorithm(playableCards)
         if (maybeCard is Card) {
-            board.setCardOnBoard(maybeCard)
+            board.setCardOnBoard(maybeCard.id)
         } else {
             playerState.reduceRemainingPassCount()
         }
-        player.cards = board.getPlayerCards(player.playerID)
+        player.cards = board.getPlayerCardIDs(player.playerID).map { cardID -> Card(cardID) }
     }
 
     fun handleState(board: Board, player: Player, playerState: PlayerState) {
@@ -68,7 +68,7 @@ class Dealer(_playerNum: Int) {
             }
             playerRanking[playerRank] = player.playerID
             player.cards.map { card ->
-                board.setCardOnBoard(card)
+                board.setCardOnBoard(card.id)
             }
         }
     }

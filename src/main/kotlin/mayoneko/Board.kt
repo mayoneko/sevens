@@ -1,52 +1,45 @@
 package mayoneko
 
 class Board {
-    private var cardsMap = mutableMapOf<Card, Int>()
+    private var cardsMap = mutableMapOf<Int, Int>()
+    //key: cardID
+    //value: ownerID
+
+    //board's ownerID == -1
 
     init {
-        (0..51).map {
-            val card = intToCard(it)
-            cardsMap[card] = -1
+        for (cardID in 0..51) {
+            cardsMap[cardID] = -1
         }
     }
 
-    private fun getCards(ownerID: Int): List<Card> {
-        val cards = mutableListOf<Card>()
+    private fun getCardIDs(ownerID: Int): List<Int> {
+        val cardIDs = mutableListOf<Int>()
         cardsMap.filter {
             it.value == ownerID
         }.map {
-            cards.add(it.key)
+            cardIDs.add(it.key)
         }
-        return cards
+        return cardIDs
     }
 
-    fun getPlayerCards(playerID: Int): List<Card> {
-        return getCards(playerID)
+    fun getPlayerCardIDs(playerID: Int): List<Int> {
+        return getCardIDs(playerID)
     }
 
-    fun getBoardCards(): List<Card> {
-        return getCards(-1)
+    fun getBoardCardIDs(): List<Int> {
+        return getCardIDs(-1)
     }
 
-    private fun moveCardOwner(card: Card, ownerID: Int) {
-        var key: Card? = null
-        cardsMap.filter {
-            it.key.equals(card)
-        }.map {
-            key = it.key
-        }
-        if (key is Card) {
-            cardsMap[key as Card] = ownerID
-        } else {
-            throw IllegalStateException("missing cards in game")
-        }
+    private fun setCardOwner(cardID: Int, ownerID: Int) {
+        cardsMap[cardID] = ownerID
     }
 
-    fun moveCardToPlayer(card: Card, playerID: Int) {
-        moveCardOwner(card, playerID)
+    fun setCardToPlayer(cardID: Int, playerID: Int) {
+        setCardOwner(cardID, playerID)
     }
 
-    fun setCardOnBoard(card: Card) {
-        moveCardOwner(card, -1)
+    fun setCardOnBoard(cardID: Int) {
+        setCardOwner(cardID, -1)
     }
 }
