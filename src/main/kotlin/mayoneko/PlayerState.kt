@@ -20,6 +20,10 @@ class PlayerState(_playerID: Int) {
         remainingPassCount--
     }
 
+    fun isPlaying(): Boolean {
+        return state == PLAYING
+    }
+
     fun changeToWin(player: Player) {
         if (player.playerID != playerID) {
             throw IllegalArgumentException("argument playerID is invalid")

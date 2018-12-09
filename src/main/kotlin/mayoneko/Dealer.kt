@@ -55,9 +55,9 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun isGameEnded(players: List<Player>): Boolean {
-        return players.all { player ->
-            !player.isPlaying()
+    fun isGameEnded(playerStates: List<PlayerState>): Boolean {
+        return playerStates.all { playerState ->
+            !playerState.isPlaying()
         }
     }
 
