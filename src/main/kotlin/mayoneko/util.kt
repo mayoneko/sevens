@@ -10,61 +10,6 @@ class Suit {
     }
 }
 
-fun cardsToString(cards: List<Card>, isBoardView: Boolean = true): String {
-    var fullBoard = ""
-    var index = 0
-    val sortedCards = sortCards(cards)
-    for (i in 0..51) {
-        val card = sortedCards[index]
-        if (i == cardToInt(card)) {
-            fullBoard += card.toString()
-            if (index < cards.size - 1) {
-                index++
-            }
-        } else {
-            if (isBoardView) {
-                fullBoard += "?-??"
-            }
-        }
-        if (i % 13 == 12) {
-            if (!isBoardView && fullBoard.length > 3 && fullBoard.get(fullBoard.length - 1) == ',') {
-                fullBoard = fullBoard.substring(0, fullBoard.length - 1)
-            }
-            fullBoard += "\n"
-        } else {
-            if (isBoardView) {
-                fullBoard += ","
-            } else {
-                if (fullBoard.length > 3 && fullBoard.get(fullBoard.length - 1) != ',' && fullBoard.get(fullBoard.length - 1) != '\n') {
-                    fullBoard += ","
-                }
-            }
-        }
-    }
-    return fullBoard
-}
-
-fun sortCards(cards: List<Card>): List<Card> {
-    return cards.sortedBy { card ->
-        cardToInt(card)
-    }
-}
-
-fun searchCards(cards: List<Card>, suit: Int? = null, number: Int? = null): List<Card> {
-    return when {
-        suit is Int && number is Int -> cards.filter { card ->
-            card.suit == suit && card.number == number
-        }
-        suit is Int -> cards.filter { card ->
-            card.suit == suit
-        }
-        number is Int -> cards.filter { card ->
-            card.number == number
-        }
-        else -> cards
-    }
-}
-
 fun getPlayableCards(cardsOnBoard: List<Card>, playerCards: List<Card>? = null): List<Card> {
 
     val playableCards = mutableListOf<Card>()

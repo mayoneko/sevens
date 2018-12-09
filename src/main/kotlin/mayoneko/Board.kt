@@ -42,4 +42,19 @@ class Board {
     fun setCardOnBoard(cardID: Int) {
         setCardOwner(cardID, -1)
     }
+
+    override fun toString(): String {
+        var fullBoard = ""
+        for ((key, value) in cardsMap) {
+            fullBoard += when (value) {
+                -1 -> Card(key).toString()
+                else -> "    "
+            }
+            fullBoard += when {
+                key % 13 == 12 -> "\n"
+                else -> ","
+            }
+        }
+        return fullBoard
+    }
 }

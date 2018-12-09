@@ -24,7 +24,7 @@ class Dealer(_playerNum: Int) {
 
     fun setStartPlayer(players: List<Player>) {
         for (player in players) {
-            if (searchCards(player.cards, Suit.CLUBS, 7).isNotEmpty()) {
+            if (player.cards.filter { card -> card.suit == Suit.CLUBS && card.number == 7 }.isNotEmpty()) {
                 this.turnPlayerID = player.id
             }
         }
@@ -32,7 +32,7 @@ class Dealer(_playerNum: Int) {
 
     fun setSevenCardsOnBoard(board: Board, players: List<Player>) {
         for (player in players) {
-            val sevenCards = searchCards(player.cards, number = 7)
+            val sevenCards = player.cards.filter { card -> card.number == 7 }
             sevenCards.forEach { card ->
                 board.setCardOnBoard(card.id)
             }
