@@ -75,13 +75,9 @@ class Dealer(_playerNum: Int) {
     }
 
     fun handleTurn(players: List<Player>) {
-        if (!isGameEnded(players)) {
             do {
                 turnPlayerID = (turnPlayerID + 1) % 3
             } while (!players[turnPlayerID].isPlaying())
-        } else {
-            gameEnding()
-        }
     }
 
     fun isGameEnded(players: List<Player>): Boolean {
@@ -90,11 +86,12 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    private fun gameEnding() {
-        println("GameSet\n")
-        for (rankID in 1..playerNum) {
-            println("${rankID}位 : Player${playerRanking[rankID]}")
-        }
+    fun gameEnding(): Map<Int, Int> {
+//        println("GameSet\n")
+//        for (rankID in 1..playerNum) {
+//            println("${rankID}位 : Player${playerRanking[rankID]}")
+//        }
+        return playerRanking
     }
 }
 
