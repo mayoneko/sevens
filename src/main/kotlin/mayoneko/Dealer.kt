@@ -1,5 +1,7 @@
 package mayoneko
 
+import kotlin.random.Random
+
 class Dealer(_playerNum: Int) {
 
     val playerNum = _playerNum
@@ -14,7 +16,8 @@ class Dealer(_playerNum: Int) {
     //game manage functions
 
     fun dealCardsToPlayers(board: Board, players: List<Player>) {
-        for ((cardID, playerID) in (0..51).shuffled().zip((0..51).map { it % 3 })) {
+        val randomInt = Random.nextInt(3)
+        for ((cardID, playerID) in (0..51).shuffled().zip((0..51).map { (it + randomInt) % 3 })) {
             board.setCardToPlayer(cardID, playerID)
         }
         for (player in players) {
@@ -75,9 +78,9 @@ class Dealer(_playerNum: Int) {
     }
 
     fun handleTurn(players: List<Player>) {
-            do {
-                turnPlayerID = (turnPlayerID + 1) % 3
-            } while (!players[turnPlayerID].isPlaying())
+        do {
+            turnPlayerID = (turnPlayerID + 1) % 3
+        } while (!players[turnPlayerID].isPlaying())
     }
 
     fun isGameEnded(players: List<Player>): Boolean {
