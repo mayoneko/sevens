@@ -31,11 +31,22 @@ fun cardsToString(cards: List<Card>, isBoardView: Boolean = true): String {
             }
         } else {
             if (isBoardView) {
-                fullBoard += "{-:--}"
+                fullBoard += "?-??"
             }
         }
         if (i % 13 == 12) {
+            if (!isBoardView && fullBoard.length > 3 && fullBoard.get(fullBoard.length - 1) == ',') {
+                fullBoard = fullBoard.substring(0, fullBoard.length - 1)
+            }
             fullBoard += "\n"
+        } else {
+            if (isBoardView) {
+                fullBoard += ","
+            } else {
+                if (fullBoard.length > 3 && fullBoard.get(fullBoard.length - 1) != ',' && fullBoard.get(fullBoard.length - 1) != '\n') {
+                    fullBoard += ","
+                }
+            }
         }
     }
     return fullBoard

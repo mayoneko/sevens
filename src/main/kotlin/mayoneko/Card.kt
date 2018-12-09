@@ -20,18 +20,9 @@ data class Card(val suit: Int, val number: Int) {
             3 -> "♠"
             else -> "?"
         }
-        val numStr = when (this.number) {
-            1 -> "A"
-            11 -> "J"
-            12 -> "Q"
-            13 -> "K"
-            in 2..10 -> this.number.toString()
-            else -> "?"
-        }.padStart(2)
+        val numStr = this.number.toString().padStart(2, '0')
 
-//        val numStr = this.number.toString().padStart(2, '0')
-
-        return "{${suitStr}-${numStr}}"
+        return "${suitStr}-${numStr}"
     }
 
     fun outerCards(): List<Card> {
