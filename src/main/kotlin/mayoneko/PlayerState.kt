@@ -19,19 +19,21 @@ class PlayerState(_playerNum: Int) {
         playerStates[playerID] = playerState
     }
 
-    fun changeToWin(player: Player): Boolean {
+    fun changeToWin(player: Player) {
         if (player.cards.isEmpty()) {
             playerStates[player.playerID] = Player.WIN
-            return true
+            return
+        } else {
+            throw IllegalStateException("this player still has cards")
         }
-        return false
     }
 
-    fun changeToLose(player: Player): Boolean {
+    fun changeToLose(player: Player) {
         if (!player.canPass()) {
             playerStates[player.playerID] = Player.LOSE
-            return true
+            return
+        } else {
+            throw IllegalStateException("this player can still pass")
         }
-        return false
     }
 }
