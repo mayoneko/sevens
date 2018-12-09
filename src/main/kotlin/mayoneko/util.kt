@@ -11,7 +11,7 @@ class Suit {
 }
 
 fun cardToInt(card: Card): Int {
-    return card.suitNum * 13 + (card.num - 1)
+    return card.suitNum * 13 + (card.cardNum - 1)
 }
 
 fun intToCard(cardID: Int): Card {
@@ -45,16 +45,16 @@ fun sortCards(cards: List<Card>): List<Card> {
     }
 }
 
-fun searchCards(cards: List<Card>, suitNum: Int? = null, num: Int? = null): List<Card> {
+fun searchCards(cards: List<Card>, suitNum: Int? = null, cardNum: Int? = null): List<Card> {
     return when {
-        suitNum is Int && num is Int -> cards.filter { card ->
-            card.suitNum == suitNum && card.num == num
+        suitNum is Int && cardNum is Int -> cards.filter { card ->
+            card.suitNum == suitNum && card.cardNum == cardNum
         }
         suitNum is Int -> cards.filter { card ->
             card.suitNum == suitNum
         }
-        num is Int -> cards.filter { card ->
-            card.num == num
+        cardNum is Int -> cards.filter { card ->
+            card.cardNum == cardNum
         }
         else -> cards
     }
@@ -83,7 +83,7 @@ fun getPlayableCards(board: Board, player: Player? = null): List<Card> {
     if (player is Player) {
         val playableCardsForPlayer = mutableListOf<Card>()
         for (card in player.cards) {
-            searchCards(playableCards, card.suitNum, card.num).map { playableCard ->
+            searchCards(playableCards, card.suitNum, card.cardNum).map { playableCard ->
                 playableCardsForPlayer.add(playableCard)
             }
         }
