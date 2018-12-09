@@ -18,7 +18,7 @@ fun intToCard(cardID: Int): Card {
     return Card(cardID % 4, cardID % 13 + 1)
 }
 
-fun cardsToString(cards: List<Card>): String {
+fun cardsToString(cards: List<Card>, isBoardView: Boolean = true): String {
     var fullBoard = ""
     var index = 0
     val sortedCards = sortCards(cards)
@@ -30,7 +30,9 @@ fun cardsToString(cards: List<Card>): String {
                 index++
             }
         } else {
-            fullBoard += "{-:-}"
+            if (isBoardView) {
+                fullBoard += "{-:-}"
+            }
         }
         if (i % 13 == 12) {
             fullBoard += "\n"
