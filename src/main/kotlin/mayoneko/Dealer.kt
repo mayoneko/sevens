@@ -61,38 +61,11 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-
-    //player state manage functions in private
-
-    private fun winPlayer(player: Player) {
-        var playerRank = 1
-        while (playerRanking.containsKey(playerRank)) {
-            playerRank++
-        }
-        playerRanking[playerRank] = player.playerID
-    }
-
-    private fun losePlayer(player: Player) {
-        for (card in player.cards) {
-            addOneCardOnBoard(card)
-        }
-        player.cards.removeAll { true }
-
-        var playerRank = playerNum - 1
-        while (playerRanking.containsKey(playerRank)) {
-            playerRank--
-        }
-        playerRanking[playerRank] = player.playerID
-    }
-
-
-    private fun gameEnding(players: List<Player>) {
+    private fun gameEnding() {
         println("GameSet\n")
-        for (rankID in 0 until players.size) {
+        for (rankID in 0 until playerNum) {
             println("${rankID}位 : Player${playerRanking[rankID]}")
         }
     }
-
-
 }
 
