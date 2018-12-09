@@ -41,8 +41,9 @@ class Dealer(_playerNum: Int) {
     }
 
     fun playTurn(board: Board, player: Player) {
-        val playableCards = getPlayableCards(board.getBoard().map { cardID -> Card(cardID) }, player.cards)
-        val maybeCard = player.algorithm.choiceCard(playableCards)
+        val boardCards = board.getBoard().map { cardID -> Card(cardID) }
+        val handCards = board.getHand(player.id).map { cardID -> Card(cardID) }
+        val maybeCard = player.algorithm.choiceCard(boardCards, handCards)
         if (maybeCard is Card) {
             board.setCardOnBoard(maybeCard.id)
         } else {
