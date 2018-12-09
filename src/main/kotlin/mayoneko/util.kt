@@ -67,16 +67,20 @@ fun getPlayableCards(cardsOnBoard: List<Card>, playerCards: List<Card>? = null):
     val playableCards = mutableListOf<Card>()
     for (i in 0..3) {
         for (card in searchCards(cardsOnBoard, i, 7)) {
-            searchCardsOfOneSideInSuit@
             for (it in card.outerCards()) {
+                var outerCardIsValid = true
                 var outerCard = it
                 while (cardsOnBoard.contains(outerCard)) {
                     if (outerCard.outerCards().isEmpty()) {
-                        break@searchCardsOfOneSideInSuit
+                        outerCardIsValid = false
+                        break
+                    } else {
+                        outerCard = outerCard.outerCards().single()
                     }
-                    outerCard = outerCard.outerCards().single()
                 }
-                playableCards.add(outerCard)
+                if (outerCardIsValid) {
+                    playableCards.add(outerCard)
+                }
             }
         }
     }
