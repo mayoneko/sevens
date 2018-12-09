@@ -23,10 +23,9 @@ class Dealer(_playerNum: Int) {
     }
 
     fun setStartPlayer(players: List<Player>) {
-        for (playerID in 0 until playerNum) {
-            val player = players[playerID]
+        for (player in players) {
             if (searchCards(player.cards, Suit.CLUBS, 7).isNotEmpty()) {
-                this.turnPlayerID = playerID
+                this.turnPlayerID = player.playerID
             }
         }
     }
