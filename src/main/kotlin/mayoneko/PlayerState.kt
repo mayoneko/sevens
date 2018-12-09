@@ -14,7 +14,7 @@ class PlayerState(_playerID: Int) {
 
     private var remainingPassCount: Int = 3
 
-    fun canPass(): Boolean = remainingPassCount > 0
+    fun getRemainingPassCount() = remainingPassCount
 
     fun reduceRemainingPassCount() {
         remainingPassCount--
@@ -41,7 +41,7 @@ class PlayerState(_playerID: Int) {
         if (player.playerID != playerID) {
             throw IllegalArgumentException("argument playerID is invalid")
         } else {
-            if (!canPass()) {
+            if (getRemainingPassCount() < 0) {
                 this.state = LOSE
                 return
             } else {
