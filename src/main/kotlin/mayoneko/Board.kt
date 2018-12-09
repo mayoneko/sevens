@@ -6,12 +6,12 @@ class Board {
     //value: ownerID
 
     companion object {
-        const val BoardID = -1
+        const val BOARD = -1
     }
 
     init {
         for (cardID in 0..51) {
-            ownerMap[cardID] = BoardID
+            ownerMap[cardID] = BOARD
         }
     }
 
@@ -28,7 +28,7 @@ class Board {
     }
 
     fun getBoard(): List<Int> {
-        return getCards(BoardID)
+        return getCards(BOARD)
     }
 
     private fun setCardOwner(cardID: Int, ownerID: Int) {
@@ -40,7 +40,7 @@ class Board {
     }
 
     fun setCardOnBoard(cardID: Int) {
-        setCardOwner(cardID, BoardID)
+        setCardOwner(cardID, BOARD)
     }
 
     override fun toString(): String {
