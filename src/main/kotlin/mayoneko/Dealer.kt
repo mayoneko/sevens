@@ -54,9 +54,19 @@ class Dealer(_playerNum: Int) {
     fun handleState(player: Player, playerState: PlayerState) {
         if (player.cards.isEmpty()) {
             playerState.changeToWin(player)
+            var playerRank = 1
+            while (playerRanking.containsKey(playerRank)) {
+                playerRank++
+            }
+            playerRanking[playerRank] = player.playerID
         }
         if (playerState.getRemainingPassCount() < 0) {
             playerState.changeToLose(player)
+            var playerRank = playerNum - 1
+            while (playerRanking.containsKey(playerRank)) {
+                playerRank--
+            }
+            playerRanking[playerRank] = player.playerID
         }
     }
 
