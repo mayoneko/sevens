@@ -16,6 +16,9 @@ class PlayerState(_playerID: Int) {
 
     fun canPass(): Boolean = remainingPassCount > 0
 
+    fun reduceRemainingPassCount() {
+        remainingPassCount--
+    }
 
     fun changeToWin(player: Player) {
         if (player.playerID != playerID) {

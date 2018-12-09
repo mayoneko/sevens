@@ -35,9 +35,14 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun playTurn(player: Player) {
-        player.playingAlgorithm(this)
-        println(cardsToString(this.getCardsOnBoard()))
+    fun playTurn(board: Board, player: Player, playerState: PlayerState) {
+        val playableCards = getPlayableCards(board.getBoardCards(), player.cards)
+        val maybeCard = player.playingAlgorithm(playableCards)
+        if (maybeCard is Card) {
+            board.setCardOnBoard(maybeCard)
+        } else {
+            playerState.reduceRemainingPassCount()
+        }
     }
 
     fun handleTurn(players: List<Player>) {
@@ -88,24 +93,6 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-
-    //card manage functions for player
-
-    fun play(player: Player, card: Card) {
-        player.cards.remove(card)
-        this.addOneCardOnBoard(card)
-        if (player.hasWinning()) {
-            this.winPlayer(player)
-        }
-    }
-
-    fun pass(player: Player) {
-        if (player.hasLosing()) {
-            this.losePlayer(player)
-        } else {
-            player.remainingPassCount--
-        }
-    }
 
 }
 
