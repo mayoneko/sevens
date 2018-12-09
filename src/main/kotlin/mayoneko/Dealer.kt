@@ -32,7 +32,7 @@ class Dealer(_playerNum: Int) {
 
     fun setSevenCardsOnBoard(board: Board, players: List<Player>) {
         for (player in players) {
-            val sevenCards = searchCards(player.cards, cardNum = 7)
+            val sevenCards = searchCards(player.cards, number = 7)
             sevenCards.forEach { card ->
                 board.setCardOnBoard(card)
             }
