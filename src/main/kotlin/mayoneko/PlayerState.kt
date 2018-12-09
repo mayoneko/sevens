@@ -1,6 +1,6 @@
 package mayoneko
 
-class PlayerStates(_playerNum: Int) {
+class PlayerState(_playerNum: Int) {
     private val playerNum = _playerNum
 
     private val playerStates = mutableMapOf<Int, Int>()
