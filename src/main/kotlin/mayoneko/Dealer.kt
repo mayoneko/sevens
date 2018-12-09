@@ -62,7 +62,7 @@ class Dealer(_playerNum: Int) {
         }
         if (playerState.getRemainingPassCount() < 0) {
             playerState.changeToLose(player)
-            var playerRank = playerNum - 1
+            var playerRank = playerNum
             while (playerRanking.containsKey(playerRank)) {
                 playerRank--
             }
