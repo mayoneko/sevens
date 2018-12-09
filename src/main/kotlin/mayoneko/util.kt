@@ -69,7 +69,7 @@ fun getPlayableCards(cardsOnBoard: List<Card>, playerCards: List<Card>? = null):
             for (it in card.outerCards()) {
                 var outerCard = it
                 while (cardsOnBoard.contains(outerCard)) {
-                    if (outerCard.outerCards().isNotEmpty()) {
+                    if (outerCard.outerCards().isEmpty()) {
                         break@searchCardsOfOneSideInSuit
                     }
                     outerCard = outerCard.outerCards().single()
