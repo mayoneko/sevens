@@ -30,10 +30,13 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun setSevenCardsOnBoard() { //TODO: move to Player Class
-        val sevenCards = searchCards(player.cards, cardNum = 7)
-        sevenCards.forEach { card ->
-            play(player, card)
+    fun setSevenCardsOnBoard(board: Board, players: List<Player>) {
+        for (player in players) {
+            val sevenCards = searchCards(player.cards, cardNum = 7)
+            sevenCards.forEach { card ->
+                board.setCardOnBoard(card)
+            }
+            player.cards = board.getPlayerCards(player.playerID)
         }
     }
 
