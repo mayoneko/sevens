@@ -89,7 +89,7 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun gameEnding(): Map<Int, Int> {
+    fun getPlayerRanking(): Map<Int, Int> {
 //        println("GameSet\n")
 //        for (rankID in 1..playerNum) {
 //            println("${rankID}位 : Player${playerRanking[rankID]}")

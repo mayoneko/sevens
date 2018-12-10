@@ -27,7 +27,7 @@ class Game {
             if (!dealer.isGameEnded(players)) {
                 dealer.handleTurn(players)
             } else {
-                result = dealer.gameEnding()
+                result = dealer.getPlayerRanking()
             }
         } while (!dealer.isGameEnded(players))
 
