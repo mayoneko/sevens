@@ -1,12 +1,12 @@
 package mayoneko
 
-class Game {
+class Game(algorithms: List<Algorithm>) {
+    private val playerNum = 3
+    private val board = Board()
+    private val dealer = Dealer(playerNum)
+    private val players = createPlayers(algorithms)
 
     fun run(): Map<Int, Int> {
-        val playerNum = 3
-        val board = Board()
-        val dealer = Dealer(playerNum)
-        val players = createPlayers()
         var result = mapOf<Int, Int>()
         dealer.dealCardsToPlayers(board, players)
         dealer.setStartPlayer(players)
@@ -34,8 +34,8 @@ class Game {
         return result
     }
 
-    fun createPlayers(): List<Player> {
-        return listOf(Player(0, RandomAlgorithm()), Player(1, KidsAlgorithm()), Player(2, MayonekoAlgorithm()))
+    private fun createPlayers(algorithms: List<Algorithm>): List<Player> {
+        return (0 until playerNum).map { Player(it, algorithms[it]) }
     }
 
 }
