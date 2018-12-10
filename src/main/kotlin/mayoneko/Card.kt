@@ -6,6 +6,13 @@ class Card {
     val number: Int
     val id: Int
 
+    companion object {
+        const val HEARTS = 0
+        const val DIAMONDS = 1
+        const val CLUBS = 2
+        const val SPADES = 3
+    }
+
     constructor(_cardID: Int) {
         if (_cardID in (0..51)) {
             id = _cardID

@@ -27,7 +27,7 @@ class Dealer(_playerNum: Int) {
 
     fun setStartPlayer(players: List<Player>) {
         for (player in players) {
-            if (player.cards.filter { card -> card.suit == Suit.CLUBS && card.number == 7 }.isNotEmpty()) {
+            if (player.cards.filter { card -> card.suit == Card.CLUBS && card.number == 7 }.isNotEmpty()) {
                 this.turnPlayerID = player.id
             }
         }
