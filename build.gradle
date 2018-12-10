@@ -11,7 +11,7 @@ buildscript{
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
-mainClassName = 'mayoneko.SevensKt'
+mainClassName = 'sevens.SevensKt'
 
 defaultTasks 'run'
 

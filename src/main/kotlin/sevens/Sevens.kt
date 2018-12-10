@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 
 fun main(args: Array<String>) {

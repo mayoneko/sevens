@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 class Game(algorithms: List<Algorithm>) {
     private val playerNum = 3

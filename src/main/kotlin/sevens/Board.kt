@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 class Board {
     private var ownerMap = mutableMapOf<Int, Int>()
