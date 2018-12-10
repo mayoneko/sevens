@@ -14,10 +14,12 @@ abstract class Algorithm {
             return card
         }
 
+        @JvmStatic
         fun pass(): Nothing? {
             return null
         }
 
+        @JvmStatic
         fun getPlayableCards(board: List<Card>): List<Card> {
             val playableCards = mutableListOf<Card>()
             for (suit in 0..3) {
@@ -35,6 +37,7 @@ abstract class Algorithm {
             return playableCards
         }
 
+        @JvmStatic
         fun getPlayableHand(board: List<Card>, hand: List<Card>): List<Card> {
             val playableCards = getPlayableCards(board)
             return playableCards.filter { card ->
