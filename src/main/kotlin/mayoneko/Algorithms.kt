@@ -3,7 +3,12 @@ package mayoneko
 import kotlin.math.absoluteValue
 
 class KidsAlgorithm : Algorithm() {
-    override fun choiceCard(board: List<Card>, hand: List<Card>): Card? {
+    override fun choiceCard(
+        board: List<Card>,
+        hand: List<Card>,
+        remainingPassCount: Int,
+        otherPlayersStatus: List<Player.Status>
+    ): Card? {
         val playableHand = getPlayableHand(board, hand)
         if (playableHand.isEmpty()) {
             return pass()
@@ -17,7 +22,12 @@ class KidsAlgorithm : Algorithm() {
 }
 
 class MayonekoAlgorithm : Algorithm() {
-    override fun choiceCard(board: List<Card>, hand: List<Card>): Card? {
+    override fun choiceCard(
+        board: List<Card>,
+        hand: List<Card>,
+        remainingPassCount: Int,
+        otherPlayersStatus: List<Player.Status>
+    ): Card? {
         val playableHand = getPlayableHand(board, hand)
         if (playableHand.isEmpty()) {
             return pass()
@@ -59,7 +69,12 @@ class MayonekoAlgorithm : Algorithm() {
 }
 
 class RandomAlgorithm : Algorithm() {
-    override fun choiceCard(board: List<Card>, hand: List<Card>): Card? {
+    override fun choiceCard(
+        board: List<Card>,
+        hand: List<Card>,
+        remainingPassCount: Int,
+        otherPlayersStatus: List<Player.Status>
+    ): Card? {
         val playableHand = getPlayableHand(board, hand)
         if (playableHand.isEmpty()) {
             return pass()

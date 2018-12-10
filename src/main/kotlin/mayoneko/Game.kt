@@ -13,12 +13,15 @@ class Game(algorithms: List<Algorithm>) {
         dealer.setSevenCardsOnBoard(board, players)
         do {
             val player = players[dealer.turnPlayerID]
+            val otherPlayersStatus = players.filter {
+                it.id != dealer.turnPlayerID
+            }.map { otherPlayer -> otherPlayer.Status() }
 
 //            println("Player${player.id}   RemainingPassCount:${player.getRemainingPassCount()}")
 //            println("Cards")
 //            println(player.cards.sortedBy { card -> card.id }.toString())
 
-            dealer.playTurn(board, player)
+            dealer.playTurn(board, player, otherPlayersStatus)
             dealer.handleState(board, player)
 
 //            println("now board")

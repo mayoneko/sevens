@@ -1,7 +1,12 @@
 package mayoneko
 
 abstract class Algorithm {
-    abstract fun choiceCard(board: List<Card>, hand: List<Card>): Card?
+    abstract fun choiceCard(
+        board: List<Card>,
+        hand: List<Card>,
+        remainingPassCount: Int,
+        otherPlayersStatus: List<Player.Status>
+    ): Card?
 
     fun play(card: Card): Card {
         return card

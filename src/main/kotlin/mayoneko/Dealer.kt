@@ -43,10 +43,10 @@ class Dealer(_playerNum: Int) {
         }
     }
 
-    fun playTurn(board: Board, player: Player) {
+    fun playTurn(board: Board, player: Player, otherPlayersStatus: List<Player.Status>) {
         val boardCards = board.getBoard().map { cardID -> Card(cardID) }
         val handCards = board.getHand(player.id).map { cardID -> Card(cardID) }
-        val playedCard = player.playCard(boardCards, handCards)
+        val playedCard = player.playCard(boardCards, handCards, otherPlayersStatus)
         if (playedCard is Card) {
             board.setCardOnBoard(playedCard.id)
         } else {
