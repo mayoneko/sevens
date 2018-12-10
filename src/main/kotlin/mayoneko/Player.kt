@@ -1,6 +1,6 @@
 package mayoneko
 
-class Player(val id: Int, val algorithm: Algorithm) {
+class Player(val id: Int, private val algorithm: Algorithm) {
 
     companion object {
         const val PLAYING = 0
