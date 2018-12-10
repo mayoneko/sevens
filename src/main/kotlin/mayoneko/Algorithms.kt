@@ -1,5 +1,8 @@
 package mayoneko
 
+import mayoneko.Algorithm.Utils.getPlayableHand
+import mayoneko.Algorithm.Utils.pass
+import mayoneko.Algorithm.Utils.play
 import kotlin.math.absoluteValue
 
 class KidsAlgorithm : Algorithm() {
