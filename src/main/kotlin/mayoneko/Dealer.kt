@@ -46,9 +46,9 @@ class Dealer(_playerNum: Int) {
     fun playTurn(board: Board, player: Player) {
         val boardCards = board.getBoard().map { cardID -> Card(cardID) }
         val handCards = board.getHand(player.id).map { cardID -> Card(cardID) }
-        val maybeCard = player.algorithm.choiceCard(boardCards, handCards)
-        if (maybeCard is Card) {
-            board.setCardOnBoard(maybeCard.id)
+        val chosenCard = player.algorithm.choiceCard(boardCards, handCards)
+        if (chosenCard is Card) {
+            board.setCardOnBoard(chosenCard.id)
         } else {
             player.reduceRemainingPassCount()
         }
