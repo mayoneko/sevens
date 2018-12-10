@@ -8,7 +8,17 @@ class Player(val id: Int, val algorithm: Algorithm) {
         const val WIN = 2
     }
 
+    inner class Status {
+        val id = this@Player.id
+        val state = this@Player.state
+        val handNum = this@Player.cards.size
+        val lastChosenCard = this@Player.chosenCard
+        val remainingPassCount = this@Player.getRemainingPassCount()
+    }
+
     var cards = listOf<Card>()
+
+    private var chosenCard: Card? = null
 
     private var state = PLAYING
 
