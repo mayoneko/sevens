@@ -15,7 +15,7 @@ abstract class Algorithm {
         }
 
         @JvmStatic
-        fun pass(): Nothing? {
+        fun pass(): Card? {
             return null
         }
 
