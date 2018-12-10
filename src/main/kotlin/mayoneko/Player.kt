@@ -20,6 +20,10 @@ class Player(val id: Int, val algorithm: Algorithm) {
         remainingPassCount--
     }
 
+    fun playCard(board: List<Card>, hand: List<Card>): Card? {
+        return algorithm.choiceCard(board, hand)
+    }
+
     fun isPlaying(): Boolean {
         return state == PLAYING
     }
