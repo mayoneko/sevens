@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 import kotlin.random.Random
 

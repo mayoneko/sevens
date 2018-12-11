@@ -1,5 +1,5 @@
 import java.util.*;
-import mayoneko.*;
+import sevens.*;
 
 void setup() {
   List<Algorithm> algorithms=Arrays.asList(new MayonekoAlgorithm(), new KidsAlgorithm(), new GreatAlgorithm());

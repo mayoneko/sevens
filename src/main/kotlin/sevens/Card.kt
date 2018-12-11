@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 
 data class Card(val id: Int, val suit: Int, val number: Int) {

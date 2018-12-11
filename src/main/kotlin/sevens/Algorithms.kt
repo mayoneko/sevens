@@ -1,8 +1,8 @@
-package mayoneko
+package sevens
 
-import mayoneko.Algorithm.Utils.getPlayableHand
-import mayoneko.Algorithm.Utils.pass
-import mayoneko.Algorithm.Utils.play
+import sevens.Algorithm.Utils.getPlayableHand
+import sevens.Algorithm.Utils.pass
+import sevens.Algorithm.Utils.play
 import kotlin.math.absoluteValue
 
 class KidsAlgorithm : Algorithm() {

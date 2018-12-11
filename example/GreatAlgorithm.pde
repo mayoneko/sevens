@@ -1,4 +1,4 @@
-import mayoneko.Algorithm.Utils;
+import sevens.Algorithm.Utils;
 
 class GreatAlgorithm extends Algorithm {
 

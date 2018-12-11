@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 class Player(val id: Int, private val algorithm: Algorithm) {
 

@@ -1,4 +1,4 @@
-package mayoneko
+package sevens
 
 abstract class Algorithm {
     abstract fun choiceCard(
